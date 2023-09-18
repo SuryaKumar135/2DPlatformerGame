@@ -95,9 +95,10 @@ public class PlayerMoment : MonoBehaviour
 
 
         //to playe the falling animations
-        if (rigidbody2DPlayer.velocity.y != 0)
+        if (rigidbody2DPlayer.velocity.y != 0 && !isclimbing)
         {
             playerAnimController.PlayerFall(true);
+            
         }
         if (rigidbody2DPlayer.velocity.y == 0 || rigidbody2DPlayer.velocity.y>-1)
         {
