@@ -12,6 +12,7 @@ TagManager:
   - HealthPacks
   - OutOffBounds
   - Chest
+  - Ladder
   layers:
   - Default
   - TransparentFX

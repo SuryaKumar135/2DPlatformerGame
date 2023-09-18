@@ -37,4 +37,8 @@ public class PlayerAnimController : MonoBehaviour
     {
         PlayerAnim.SetTrigger("Death");
     }
+    public void PlayerClimb(int climb)
+    {
+        PlayerAnim.SetInteger("Climb",climb);
+    }
 }//class

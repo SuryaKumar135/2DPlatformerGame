@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
@@ -38,6 +39,8 @@ public class PlayerMoment : MonoBehaviour
         REFhealthScript.healthImage.fillAmount = REFhealthScript.Health/100f;
         playerRun();
         rigidbody2DPlayer.velocity = new Vector2(playerDir.x,rigidbody2DPlayer.velocity.y);
+
+        print(rigidbody2DPlayer.velocity.y);
        
     }
     void playerRun()
@@ -101,6 +104,35 @@ public class PlayerMoment : MonoBehaviour
             playerAnimController.PlayerIdle(true);
             playerAnimController.PlayerFall(false);
         }
+        PlayerClimb();
+    }
+
+    bool isclimbing,canClimb;
+    float climbSpeed = 5;
+    float yInput;
+    void PlayerClimb()
+    {
+        yInput = Input.GetAxis("Vertical");
+
+        if(canClimb&& math.abs(yInput)!=0)
+        {
+            isclimbing = true;
+           
+        }
+       
+        if(isclimbing)
+        {
+            rigidbody2DPlayer.gravityScale = 0f;
+            rigidbody2DPlayer.velocity=new Vector2(rigidbody2DPlayer.velocity.x,yInput*climbSpeed);
+            playerAnimController.PlayerIdle(!canClimb);
+            playerAnimController.PlayerClimb((int)yInput);
+        }
+        else
+        {
+            rigidbody2DPlayer.gravityScale = 1f;
+        }
+           
+       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -111,6 +143,20 @@ public class PlayerMoment : MonoBehaviour
             REFhealthScript.Health += 5;
             collision.gameObject.SetActive(false);
         }
+        if(collision.gameObject.CompareTag("Ladder"))
+        { 
+                canClimb = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+       
+        
+            if (collision.gameObject.CompareTag("Ladder"))
+            {
+                isclimbing = false;
+                canClimb = false;
+            }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -125,4 +171,7 @@ public class PlayerMoment : MonoBehaviour
             collision.gameObject.GetComponent<Pickable>().itemDropped = true;
         }
     }
+
+  
+
 }
