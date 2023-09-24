@@ -29,4 +29,8 @@ public class EnemyAnimator : MonoBehaviour
     {
         enemyAnimator.SetTrigger("Death");
     }
+    public void EnemyHurt()
+    {
+        enemyAnimator.SetTrigger("Hurt");
+    }
 }

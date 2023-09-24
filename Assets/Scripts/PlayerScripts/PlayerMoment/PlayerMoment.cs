@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
@@ -35,12 +36,13 @@ public class PlayerMoment : MonoBehaviour
     }
     private void Update()
     {
+        yInput = Input.GetAxis("Vertical");
         //Health
         REFhealthScript.healthImage.fillAmount = REFhealthScript.Health/100f;
         playerRun();
         rigidbody2DPlayer.velocity = new Vector2(playerDir.x,rigidbody2DPlayer.velocity.y);
 
-        print(rigidbody2DPlayer.velocity.y);
+       // print(rigidbody2DPlayer.velocity.y);
        
     }
     void playerRun()
@@ -107,26 +109,32 @@ public class PlayerMoment : MonoBehaviour
         }
         PlayerClimb();
     }
-
+    //player climb for player
     bool isclimbing,canClimb;
     float climbSpeed = 5;
     float yInput;
     void PlayerClimb()
     {
-        yInput = Input.GetAxis("Vertical");
-
+       
+       
         if(canClimb&& math.abs(yInput)!=0)
         {
             isclimbing = true;
            
         }
-       
-        if(isclimbing)
+        else
         {
+            yInput = 0;
+        }
+       
+        playerAnimController.PlayerClimb((int)yInput);
+        
+        if (isclimbing)
+        {
+            playerDir.x = 0;
             rigidbody2DPlayer.gravityScale = 0f;
             rigidbody2DPlayer.velocity=new Vector2(rigidbody2DPlayer.velocity.x,yInput*climbSpeed);
             playerAnimController.PlayerIdle(!canClimb);
-            playerAnimController.PlayerClimb((int)yInput);
         }
         else
         {
@@ -137,13 +145,7 @@ public class PlayerMoment : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "HealthPacks" && transform.GetComponent<HealthScript>().Health<100)
-        {
-            print("Health Recorved");
-            REFhealthScript.healthImage.fillAmount += 5;
-            REFhealthScript.Health += 5;
-            collision.gameObject.SetActive(false);
-        }
+        
         if(collision.gameObject.CompareTag("Ladder"))
         { 
                 canClimb = true;
@@ -161,18 +163,24 @@ public class PlayerMoment : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("OutOffBounds"))
+        if (collision.gameObject.tag == "HealthPacks" && transform.GetComponent<HealthScript>().Health < 100)
+        {
+            print("Health Recorved");
+            REFhealthScript.healthImage.fillAmount += 5;
+            REFhealthScript.Health += 5;
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("OutOffBounds"))
         {
             REFhealthScript.ApplyDamage(100);
-            transform.GetComponent<KnockBack>().KnockBackEffect(Vector2.up);
+           // transform.GetComponent<KnockBack>().KnockBackEffect(Vector2.up);
         }
         if(collision.gameObject.CompareTag("Chest"))
         {
             collision.gameObject.GetComponent<Pickable>().Throwables();
             collision.gameObject.GetComponent<Pickable>().itemDropped = true;
         }
+       
+            
     }
-
-  
-
 }

@@ -41,4 +41,8 @@ public class PlayerAnimController : MonoBehaviour
     {
         PlayerAnim.SetInteger("Climb",climb);
     }
+    public void PlayerHurt()
+    {
+        PlayerAnim.SetTrigger("Hurt");
+    }
 }//class
