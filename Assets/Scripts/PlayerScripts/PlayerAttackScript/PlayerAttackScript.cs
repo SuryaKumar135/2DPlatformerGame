@@ -94,6 +94,12 @@ public class PlayerAttackScript : MonoBehaviour
     {
         attackDetection(false);
     }
+    public void ClimbOverCall()
+    {
+        PlayerMoment Temp= GetComponentInParent<PlayerMoment>();
+        Temp.LedgeClimbOver();
+    }
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

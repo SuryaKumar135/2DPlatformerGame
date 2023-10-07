@@ -5,32 +5,39 @@ using UnityEngine;
 public class EnemyAnimator : MonoBehaviour
 {
     private Animator enemyAnimator;
+
+    int hashId_Idle = Animator.StringToHash("Idle");
+    int hashId_Patrol = Animator.StringToHash("Patrol");
+    int hashId_Chase = Animator.StringToHash("Chase");
+    int hashId_Attack = Animator.StringToHash("Attack");
+    int hashId_Death = Animator.StringToHash("Death");
+    int hashId_Hurt = Animator.StringToHash("Hurt");
     private void Awake()
     {
         enemyAnimator = GetComponent<Animator>();
     }
-    public void enemyIdle(bool idle)
+    public void EnemyIdle(bool idle)
     {
-        enemyAnimator.SetBool("Idle", idle);
+        enemyAnimator.SetBool(hashId_Idle, idle);
     }
-    public void enemyPatrol(bool walk)
+    public void EnemyPatrol(bool patrol)
     {
-        enemyAnimator.SetBool("Patrol", walk);
+        enemyAnimator.SetBool(hashId_Patrol, patrol);
     }
-    public void enemyChase(bool chase)
+    public void EnemyChase(bool chase)
     {
-        enemyAnimator.SetBool("Chase", chase);
+        enemyAnimator.SetBool(hashId_Chase, chase);
     }
-    public void enemyAttack()
+    public void EnemyAttack()
     {
-        enemyAnimator.SetTrigger("Attack");
+        enemyAnimator.SetTrigger(hashId_Attack);
     }
-    public void enemyDeath()
+    public void EnemyDeath()
     {
-        enemyAnimator.SetTrigger("Death");
+        enemyAnimator.SetTrigger(hashId_Death);
     }
     public void EnemyHurt()
     {
-        enemyAnimator.SetTrigger("Hurt");
+        enemyAnimator.SetTrigger(hashId_Hurt);
     }
 }

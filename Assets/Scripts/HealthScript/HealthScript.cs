@@ -60,7 +60,7 @@ public class HealthScript : MonoBehaviour
                 //enemy drop end
                 transform.GetComponent<EnemyMomentScript>().enabled = false;
 
-                transform.GetComponent<EnemyAnimator>().enemyDeath();
+                transform.GetComponent<EnemyAnimator>().EnemyDeath();
                 transform.GetComponent<Collider2D>().enabled = false;
             }
             Invoke("SetActive", deathTime);

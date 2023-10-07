@@ -24,7 +24,7 @@ public class KnockBack : MonoBehaviour
     {
         
          StartCoroutine(Reset());
-         dir=(transform.position-sender.transform.position);
+         dir.x=(transform.position.x-sender.transform.position.x);
         
          rb2DREf.AddForce(dir*strength,ForceMode2D.Impulse);
         if(isPlayer)

@@ -83,8 +83,8 @@ public class EnemyMomentScript : MonoBehaviour
     public void EnemyPatrol()
     {
 
-        enemyAnimator.enemyIdle(false);
-        enemyAnimator.enemyPatrol(true);
+        enemyAnimator.EnemyIdle(false);
+        enemyAnimator.EnemyPatrol(true);
        
         Debug.DrawRay(enemyRayDetectionArea.position, Vector2.down * enemyGroundDetectionDistance, Color.blue);
         Debug.DrawRay(enemyRayDetectionArea.position, new Vector2(enemyWallDetectionDistance, 0) * enemyWallDetectionDistance, Color.green);
@@ -166,8 +166,8 @@ public class EnemyMomentScript : MonoBehaviour
             else
             {
                
-                enemyAnimator.enemyChase(true);
-                enemyAnimator.enemyPatrol(false);
+                enemyAnimator.EnemyChase(true);
+                enemyAnimator.EnemyPatrol(false);
                
             }
             //Attack code End
@@ -177,16 +177,16 @@ public class EnemyMomentScript : MonoBehaviour
             {
                 print("Cant Jump Off");
                 enemyRigidbodySD.velocity = Vector2.zero;
-                enemyAnimator.enemyIdle(true);
-                enemyAnimator.enemyChase(false);
+                enemyAnimator.EnemyIdle(true);
+                enemyAnimator.EnemyChase(false);
                 return;
             }
             else
             {
               //  print("Cant Jump Off");
                 enemyState = EnemyState.Chase;
-                enemyAnimator.enemyChase(true);
-                enemyAnimator.enemyIdle(false);
+                enemyAnimator.EnemyChase(true);
+                enemyAnimator.EnemyIdle(false);
             }
             ChaseDirection();
 
@@ -199,25 +199,25 @@ public class EnemyMomentScript : MonoBehaviour
         if (boxDetection.gameObject.transform.position.x > transform.position.x)
         {
 
-            enemyAnimator.enemyChase(true);
-            enemyAnimator.enemyPatrol(false);
+            enemyAnimator.EnemyChase(true);
+            enemyAnimator.EnemyPatrol(false);
             enemyRigidbodySD.velocity = new Vector2(chaseSpeed, enemyRigidbodySD.velocity.y);
             transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else
         {
 
-            enemyAnimator.enemyChase(true);
-            enemyAnimator.enemyPatrol(false);
+            enemyAnimator.EnemyChase(true);
+            enemyAnimator.EnemyPatrol(false);
             enemyRigidbodySD.velocity = new Vector2(-chaseSpeed, enemyRigidbodySD.velocity.y);
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
     }
     void EnemyAttack()
     {
-        enemyAnimator.enemyAttack();
-        enemyAnimator.enemyPatrol(false);
-        enemyAnimator.enemyChase(false);
+        enemyAnimator.EnemyAttack();
+        enemyAnimator.EnemyPatrol(false);
+        enemyAnimator.EnemyChase(false);
     }
     //variables for enemy damage and attack detection
     [Header("Enemy Attack")]

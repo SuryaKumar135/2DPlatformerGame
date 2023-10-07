@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerAnimController : MonoBehaviour
 {
     Animator PlayerAnim;
-    
+   
     private void Awake()
     {
         PlayerAnim=GetComponent<Animator>();   
     }
+    int hashId_Idle = Animator.StringToHash("Idle");
     public void PlayerIdle(bool idle)
     {
        PlayerAnim.SetBool("Idle",idle);
@@ -25,7 +26,7 @@ public class PlayerAnimController : MonoBehaviour
     }
     public void PlayerSlide(bool slide)
     {
-        PlayerAnim.SetBool("Sliding", slide);
+        PlayerAnim.SetBool("WallSlide", slide);
 
     }
     public void PlayerFall(bool fall)
@@ -44,5 +45,13 @@ public class PlayerAnimController : MonoBehaviour
     public void PlayerHurt()
     {
         PlayerAnim.SetTrigger("Hurt");
+    }
+    public void PlayerLedgeClimb(bool Ledge)
+    {
+        PlayerAnim.SetBool("LedgeClimb", Ledge);
+    }
+    public void PlayerLadderClimb(bool LadderClimb)
+    {
+        PlayerAnim.SetBool("LadderClimb", LadderClimb);
     }
 }//class
